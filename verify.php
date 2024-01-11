@@ -13,10 +13,19 @@ $pwd = $_POST['pwd'];
 <body>
     <h1 style="text-align: center;">Webboard 1srah</h1>
     <hr>
-    <div style="text-align:center;">เข้าสู่ระบบด้วย<br>
+    <center>
     <?php
-        echo "Login = $username <br>";
-        echo "Password = $pwd";
-    ?></div>
+        if($username == "admin" && $pwd == "ad1234"){
+            echo "ยินดีต้อนรับคุณ ADMIN<br>";
+        }
+        else if($username == "member" && $pwd == "mem1234"){
+            echo "ยินดีต้อนรับคุณ MEMBER <br>";
+        }
+        else{
+            echo "บัญชีหรือรหัสผ่านไม่ถูกต้อง <br>";
+        }
+        echo "<a href=index.php>กลับไปหน้าหลัก</a>";
+    ?>
+    </center>
 </body>
 </html>

@@ -19,6 +19,17 @@
     <h1>Webboard 1srah</h1>
     <hr>
     <div style="text-align: center;"><?php echo "ต้องการดูกระทู้หมายเลข ".$_GET['id']."<br>";?></div>
+    <center>
+        <?php
+            $id = $_GET['id'];
+            if($id%2 == 0){
+                echo "เป็นกระทู้หมายเลขคู่";
+            }
+            else{
+                echo "เป็นกระทู้หมายเลขคี่";
+            }
+        ?>
+    </center>
     <br>
     <form>
         <table align="center">
@@ -27,7 +38,7 @@
             <tr><td colspan="2" align="center"><input type="submit" value="ส่งข้อความ"></td></tr>
         </table>
         <br>
-        <div style="text-align: center;"><a href="index.html">กลับสู่หน้าหลัก</a></div>
+        <div style="text-align: center;"><a href="index.php">กลับสู่หน้าหลัก</a></div>
     </form>
 </body>
 </html>
