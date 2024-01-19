@@ -1,4 +1,9 @@
 <?php
+session_start();
+if(isset($_SESSION['id'])){
+    header("location:index.php");
+    die();
+}
 $username = $_POST['login'];
 $pwd = $_POST['pwd'];
 ?>
@@ -16,10 +21,16 @@ $pwd = $_POST['pwd'];
     <center>
     <?php
         if($username == "admin" && $pwd == "ad1234"){
+            $_SESSION['username'] = $username;
+            $_SESSION['role'] = "a";
+            $_SESSION['id'] = session_id();
             echo "ยินดีต้อนรับคุณ ADMIN<br>";
         }
         else if($username == "member" && $pwd == "mem1234"){
             echo "ยินดีต้อนรับคุณ MEMBER <br>";
+            $_SESSION['username'] = $username;
+            $_SESSION['role'] = "m";
+            $_SESSION['id'] = session_id();
         }
         else{
             echo "บัญชีหรือรหัสผ่านไม่ถูกต้อง <br>";

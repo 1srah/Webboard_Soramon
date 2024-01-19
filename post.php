@@ -31,7 +31,7 @@
         ?>
     </center>
     <br>
-    <form>
+    <div>
         <table align="center">
             <tr><td colspan="2"  style="background-color: #6CD2FE;">แสดงความคิดเห็น</td></tr>
             <tr><td><textarea id="w3review" name="w3review" rows="20" cols="60"></textarea></td></tr>
@@ -39,6 +39,6 @@
         </table>
         <br>
         <div style="text-align: center;"><a href="index.php">กลับสู่หน้าหลัก</a></div>
-    </form>
+    </div>
 </body>
 </html>
