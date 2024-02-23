@@ -29,7 +29,7 @@ session_start();
                         <?php } else { ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle btn btn-outline-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-people-fill"></i> <?php echo "$_SESSION[username]" ?>
+                            <i class="bi bi-people-fill"></i> <?php echo "$_SESSION[username]" ?>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="logout.php"><i class="bi bi-power"></i> ออกจากระบบ</a></li>
@@ -40,40 +40,36 @@ session_start();
                 </ul>
             </div>
         </nav>
-        <form>
-            <?php
-            if (!isset($_SESSION['id'])) {
-                echo "<a href=login.php style='float: right;'>เข้าสู่ระบบ</a>";
-            } else {
-                echo "<div style='float: right;'> ผู้ใช้งานระบบ : $_SESSION[username] &nbsp;&nbsp; <a href=logout.php '>ออกจากระบบ</a></div>";
-                echo "<div> <a href=newpost.php>สร้างกระทู้ใหม่</a></div>";
-            }
-            ?>
-            <form>
+            <div class="mt-3 mb-3 d-flex justify-content-between">
                 <div>
-                    <label>หมวดหมู่:</label>
-                    <select name="category" id="">
-                        <option value="all">--ทั้งหมด--</option>
-                        <option value="general">เรื่องทั่วไป</option>
-                        <option value="study">เรื่องเรียน</option>
-                    </select>
+                    <lebel>หมวดหมู่ :</lebel>
+                    <span class="dropdown">
+                        <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            --หมวดหมู่--</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">ทั้งหมด</a></li>
+                            <li><a class="dropdown-item" href="#">เรื่องเรียน</a></li>
+                            <li><a class="dropdown-item" href="#">เรื่องทั่วไป</a></li>
+                        </ul>
+                    </span>
                 </div>
-            </form>
-
-        </form>
-        <br>
-        <ul>
+                <?php if (isset($_SESSION['id'])) { ?>
+                    <div><a href="newpost.php" class="btn btn-success btn-sm">
+                            <i class="bi bi-plus"></i>สร้างกระทู้ใหม่
+                        </a></div>
+                <?php } ?>
+            </div>
+        <table class="table table-striped">
             <?php
-            for ($i = 1; $i <= 10; $i++) {
-                echo "<thead><tr><td></td><a href=post.php?id=$i>กระทู้ที่ $i</a></tr></td><br>";
-                if (isset($_SESSION['id']) && $_SESSION['role'] == 'a') {
-                    echo "&nbsp <a href=delete.php?id=$i>ลบ</a>";
-                }
-                echo "";
+                for ($i = 1; $i <= 10; $i++) {
+                    echo "<tr><td class='d-flex justify-content-between'><a href=post.php?id=$i style=text-decoration:none>กระทู้ที่ $i</a>";
+                    if (isset($_SESSION['id']) && $_SESSION['role'] == 'a') {
+                        echo "&nbsp <a href=delete.php?id=$i class='btn btn-danger btn-sm'><i class='bi bi-trash'></i></a>";
+                    }
+                    echo "</tr></td>";
             }
             ?>
-
-        </ul>
+        </table>
     </div>
 </body>
 
