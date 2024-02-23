@@ -18,28 +18,7 @@ session_start();
     <div class="container-lg">
         <h1 style="text-align: center;" class="mt-3">Webboard 1srah</h1>
         <hr>
-        <nav class="navbar navbar-expand-lg" style="background-color: #d3d3d3;">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="index.php"><i class="bi bi-house-door-fill"></i> Home</a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <?php
-                        if (!isset($_SESSION['id'])) { ?>
-                            <a class="nav-link" aria-current="page" href="login.php"><i class="bi bi-pencil-square"></i> เข้าสู่ระบบ</a>
-                        <?php } else { ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle btn btn-outline-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-people-fill"></i> <?php echo "$_SESSION[username]" ?>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="logout.php"><i class="bi bi-power"></i> ออกจากระบบ</a></li>
-                        </ul>
-                    </li>
-                <?php } ?>
-                </li>
-                </ul>
-            </div>
-        </nav>
+        <?php include "nav.php"; ?>
             <div class="mt-3 mb-3 d-flex justify-content-between">
                 <div>
                     <lebel>หมวดหมู่ :</lebel>
