@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2024 at 05:46 AM
+-- Generation Time: Mar 01, 2024 at 06:16 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -31,6 +31,15 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'เรื่องทั่วไป'),
+(2, 'เรื่องเรียน'),
+(3, 'เรื่องกีฬา');
 
 -- --------------------------------------------------------
 
@@ -61,6 +70,15 @@ CREATE TABLE `post` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`id`, `title`, `content`, `post_date`, `cat_id`, `user_id`) VALUES
+(1, 'ทำทำไม', 'มีอะไร', '2024-03-01 05:48:56', 2, 1),
+(5, 'เรียน', 'HTML', '2024-03-01 11:59:01', 2, 14),
+(6, 'ไก่', 'น้อย', '2024-03-01 12:15:06', 3, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -76,6 +94,14 @@ CREATE TABLE `user` (
   `email` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `role` char(1) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `login`, `password`, `name`, `gender`, `email`, `role`) VALUES
+(1, 'admin', '8dc9fa69ec51046b4472bb512e292d959edd2aef', 'admin', 'm', 'admin@c.com', 'a'),
+(14, 'member2', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'member2', 'm', 'mem2@c.com', 'm');
 
 --
 -- Indexes for dumped tables
@@ -113,7 +139,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -125,13 +151,13 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
