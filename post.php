@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,40 +8,70 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webboard</title>
-    <style>
-        h1{
-            text-align: center;
-        }
-        table{
-            border: 2px solid black;
-            width: 25%;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <h1>Webboard 1srah</h1>
-    <hr>
-    <div style="text-align: center;"><?php echo "ต้องการดูกระทู้หมายเลข ".$_GET['id']."<br>";?></div>
-    <center>
+    <div class="container-lg">
+        <h1 style="text-align: center;" class="mt-3">Webboard 1srah</h1>
+        <?php include "nav.php"; ?>
+        <div class="row mt-4">
+            <div class="col-lg-3 col-md-2 col-sm-1"></div>
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <?php
+                    $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root","");
+                    $sql = "SELECT t1.title,t1.content,t1.post_date,t2.login FROM post AS t1
+                    INNER JOIN user as t2 ON (t1.user_id=t2.id) WHERE t1.id = $_GET[id]";
+                    $result = $conn->query($sql);
+                    while($row = $result->fetch()){
+                        echo "<div class='card border-primary mt-3'>";
+                        echo "<div class='card-header bg-primary text-white'>$row[0]</div>";
+                        echo "<div class='card-body'>$row[1]<br>$row[3] - $row[2]</div>";
+                        echo "</div>";
+                    }
+                    ?>
+            </div>
+        </div>
         <?php
-            $id = $_GET['id'];
-            if($id%2 == 0){
-                echo "เป็นกระทู้หมายเลขคู่";
-            }
-            else{
-                echo "เป็นกระทู้หมายเลขคี่";
-            }
+            if(isset($_SESSION['id'])){
         ?>
-    </center>
-    <br>
-    <div>
-        <table align="center">
-            <tr><td colspan="2"  style="background-color: #6CD2FE;">แสดงความคิดเห็น</td></tr>
-            <tr><td><textarea id="w3review" name="w3review" rows="20" cols="60"></textarea></td></tr>
-            <tr><td colspan="2" align="center"><input type="submit" value="ส่งข้อความ"></td></tr>
-        </table>
-        <br>
-        <div style="text-align: center;"><a href="index.php">กลับสู่หน้าหลัก</a></div>
+        <div class="row mt-4">
+            <div class="col-lg-3 col-md-2 col-sm-1"></div>
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="card border-success mt-3">
+                    <div class="card-header bg-success text-white">
+                        แสดงความคิดเห็น
+                    </div>
+                    <div class="card-body">
+                        <form action="post_save.php" method="post">
+                            <input type="hidden" name="post_id" 
+                            value="<?= $_GET['id']; ?>">
+                            <div class="row mb-3 justify-content-center">
+                                <div class="col-lg-10">
+                                    <textarea name="comment" rows="8" class="form-control" required></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-success btn-sm text-white">
+                                        <i class="bi bi-box-arrow-up-right"></i> ส่งข้อความ
+                                    </button>
+                                    <button type="reset" class="btn btn-danger btn-sm ms-2">
+                                        <i class="bi bi-x-square"></i> ยกเลิก
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-2 col-sm-1"></div>
+        <?php } 
+        ?>
     </div>
+</div>
 </body>
 </html>
