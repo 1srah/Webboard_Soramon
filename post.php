@@ -21,8 +21,8 @@ session_start();
             <div class="col-lg-6 col-md-8 col-sm-10">
                 <?php
                     $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root","");
-                    $sql = "SELECT t1.title,t1.content,t1.post_date,t2.login FROM post AS t1
-                    INNER JOIN user as t2 ON (t1.user_id=t2.id) WHERE t1.id = $_GET[id]";
+                    $sql = "SELECT post.title,post.content,post.post_date,user.login FROM post
+                    INNER JOIN user ON (post.user_id=user.id) WHERE post.id = $_GET[id]";
                     $result = $conn->query($sql);
                     while($row = $result->fetch()){
                         echo "<div class='card border-primary mt-3'>";
@@ -30,14 +30,16 @@ session_start();
                         echo "<div class='card-body'>$row[1]<br>$row[3] - $row[2]</div>";
                         echo "</div>";
                     }
-                    $sql = "SELECT t1.content,t1.post_date,t2.login FROM comment AS t1
-                    INNER JOIN user as t2 ON (t1.user_id=t2.id) WHERE comment.post_id = $_GET[id]";
+                    $i=1;
+                    $sql = "SELECT comment.content,comment.post_date,user.login FROM comment
+                    INNER JOIN user ON (comment.user_id=user.id) WHERE comment.post_id = $_GET[id]";
                     $result = $conn->query($sql);
                     while($row = $result->fetch()){
                         echo "<div class='card border-info mt-3'>";
-                        echo "<div class='card-header bg-info text-white'>ความคิดเห็นที่ 1</div>";
+                        echo "<div class='card-header bg-info text-white'>ความคิดเห็นที่ $i</div>";
                         echo "<div class='card-body'>$row[0]<br>$row[2] - $row[1]</div>";
                         echo "</div>";
+                        $i+=1;
                     }
                     ?>
             </div>

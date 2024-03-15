@@ -16,6 +16,23 @@ if (isset($_SESSION['id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script>
+        function showpwd(){
+            let x = document.getElementById("pass");
+            let show = document.getElementById("show_eye");
+            let hide = document.getElementById("hidden_eye");
+            hide.classList.remove("d-none");
+            if(x.type==="password"){
+                x.type="text";
+                show.classList.add("d-none");
+            }
+            else{
+                x.type="password";
+                show.classList.remove("d-none");
+                hide.classList.add("d-none");
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -40,7 +57,14 @@ if (isset($_SESSION['id'])) {
                             </div>
                             <div class="form-group mt-3">
                                 <label for="pass" class="form-label">Password:</label>
-                                <input type="password" id="pass" class="form-control" name="pwd" required>
+                                <div class="input-group">
+                                    <input type="password" id="pass" class="form-control" name="pwd" required>
+                                    <span class="input-group-text" onclick="showpwd()">
+                                        <i class="bi bi-eye-fill" id="show_eye"></i>
+                                        <i class="bi bi-eye-slash-fill d-none" id="hidden_eye"></i>
+                                    </span>
+                                </div>
+                                
                             </div>
                             <div class="d-flex justify-content-center mt-3">
                                 <button type="submit" class="btn btn-secondary btn-sm me-1">Login</button>
