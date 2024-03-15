@@ -32,12 +32,12 @@ session_start();
                         <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             --หมวดหมู่--</button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">ทั้งหมด</a></li>
+                            <li><a class="dropdown-item" href="index.php">ทั้งหมด</a></li>
                             <?php
                             $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root","");
                             $sql = "SELECT * FROM category";
                             foreach($conn->query($sql) as $row){
-                                echo "<li><a class=dropdown-item href=#>$row[name]</a></li>";
+                                echo "<li><a class=dropdown-item href=index.php?catid=$row[id]>$row[name]</a></li>";
                             } 
                             $conn = null;
                             ?>
@@ -52,6 +52,22 @@ session_start();
             </div>
         <table class="table table-striped">
             <?php
+                if(isset($_GET['catid'])){
+                $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root","");
+                $sql = "SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date FROM post as t1
+                INNER JOIN user as t2 ON (t1.user_id=t2.id)
+                INNER JOIN category as t3 ON(t1.cat_id=t3.id) WHERE t3.id = $_GET[catid] ORDER BY t1.post_date DESC";
+                $result = $conn->query($sql);
+                while($row = $result->fetch()){
+                    echo "<tr><td class='d-flex justify-content-between'>
+                    <div>[ $row[0] ]<a href=post.php?id=$row[2] style=text-decoration:none> $row[1]</a><br>$row[3] - $row[4]</div>";
+                    if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
+                        echo "<div class='me-2 align-self-center'><a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a> </div>";
+                    }
+                    
+                }
+            }
+            else{
                 $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root","");
                 $sql = "SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date FROM post as t1
                 INNER JOIN user as t2 ON (t1.user_id=t2.id)
@@ -64,7 +80,8 @@ session_start();
                         echo "<div class='me-2 align-self-center'><a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a> </div>";
                     }
                     
-                }
+            }
+        }
             ?>
         </table>
     </div>
