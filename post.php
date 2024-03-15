@@ -30,6 +30,15 @@ session_start();
                         echo "<div class='card-body'>$row[1]<br>$row[3] - $row[2]</div>";
                         echo "</div>";
                     }
+                    $sql = "SELECT t1.content,t1.post_date,t2.login FROM comment AS t1
+                    INNER JOIN user as t2 ON (t1.user_id=t2.id) WHERE comment.post_id = $_GET[id]";
+                    $result = $conn->query($sql);
+                    while($row = $result->fetch()){
+                        echo "<div class='card border-info mt-3'>";
+                        echo "<div class='card-header bg-info text-white'>ความคิดเห็นที่ 1</div>";
+                        echo "<div class='card-body'>$row[0]<br>$row[2] - $row[1]</div>";
+                        echo "</div>";
+                    }
                     ?>
             </div>
         </div>
