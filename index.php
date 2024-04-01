@@ -35,13 +35,13 @@ session_start();
                             $sql = "SELECT * FROM category WHERE category.id = $_GET[catid]";
                             foreach($conn->query($sql) as $row){
                                 echo "<button type=button class='btn btn-light btn-sm dropdown-toggle' data-bs-toggle='dropdown' aria-expanded=false>
-                                $row[name]</button>";
+                                --$row[name]--</button>";
                             } 
                             $conn = null;
                         }
                         else{
                             echo "<button type=button class='btn btn-light btn-sm dropdown-toggle' data-bs-toggle='dropdown' aria-expanded=false>
-                            ทั้งหมด</button>";
+                            --ทั้งหมด--</button>";
                         }
                         ?>
                         
@@ -68,7 +68,7 @@ session_start();
             <?php
                 if(isset($_GET['catid'])){
                 $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root","");
-                $sql = "SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date FROM post as t1
+                $sql = "SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date,t2.id,t1.user_id FROM post as t1
                 INNER JOIN user as t2 ON (t1.user_id=t2.id)
                 INNER JOIN category as t3 ON(t1.cat_id=t3.id) WHERE t3.id = $_GET[catid] ORDER BY t1.post_date DESC";
                 $result = $conn->query($sql);
@@ -76,14 +76,21 @@ session_start();
                     echo "<tr><td class='d-flex justify-content-between'>
                     <div>[ $row[0] ]<a href=post.php?id=$row[2] style=text-decoration:none> $row[1]</a><br>$row[3] - $row[4]</div>";
                     if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
-                        echo "<div class='me-2 align-self-center'><a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a> </div>";
+                        echo "<div class='me-2 align-self-center'>
+                        <a href=editpost.php?postid=$row[2] class='btn btn-warning btn-sm me-1'><i class='bi bi-pencil-fill'></i></a>
+                        <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
+                    }
+                    else if(isset($_SESSION['id']) && $_SESSION['role']=='m' && $row[6] == $_SESSION['user_id']){
+                        echo "<div class='me-2 align-self-center'>
+                        <a href=editpost.php?postid=$row[2] class='btn btn-warning btn-sm me-1'><i class='bi bi-pencil-fill'></i></a>
+                        <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
                     }
                     
                 }
             }
             else{
                 $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root","");
-                $sql = "SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date FROM post as t1
+                $sql = "SELECT t3.name,t1.title,t1.id,t2.login,t1.post_date,t2.id,t1.user_id FROM post as t1
                 INNER JOIN user as t2 ON (t1.user_id=t2.id)
                 INNER JOIN category as t3 ON(t1.cat_id=t3.id) ORDER BY t1.post_date DESC";
                 $result = $conn->query($sql);
@@ -91,9 +98,15 @@ session_start();
                     echo "<tr><td class='d-flex justify-content-between'>
                     <div>[ $row[0] ]<a href=post.php?id=$row[2] style=text-decoration:none> $row[1]</a><br>$row[3] - $row[4]</div>";
                     if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
-                        echo "<div class='me-2 align-self-center'><a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a> </div>";
+                        echo "<div class='me-2 align-self-center'>
+                        <a href=editpost.php?postid=$row[2] class='btn btn-warning btn-sm me-1'><i class='bi bi-pencil-fill'></i></a>
+                        <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
                     }
-                    
+                    else if(isset($_SESSION['id']) && $_SESSION['role']=='m' && $row[6] == $_SESSION['user_id']){
+                        echo "<div class='me-2 align-self-center'>
+                        <a href=editpost.php?postid=$row[2] class='btn btn-warning btn-sm me-1'><i class='bi bi-pencil-fill'></i></a>
+                        <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
+                    }
             }
         }
             ?>
