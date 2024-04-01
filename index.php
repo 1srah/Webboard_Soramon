@@ -29,8 +29,22 @@ session_start();
                 <div>
                     <lebel>หมวดหมู่ :</lebel>
                     <span class="dropdown">
-                        <button type="button" class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            --หมวดหมู่--</button>
+                        <?php
+                        if(isset($_GET['catid'])){
+                            $conn = new PDO("mysql:host=localhost;dbname=webboard;charset=utf8","root","");
+                            $sql = "SELECT * FROM category WHERE category.id = $_GET[catid]";
+                            foreach($conn->query($sql) as $row){
+                                echo "<button type=button class='btn btn-light btn-sm dropdown-toggle' data-bs-toggle='dropdown' aria-expanded=false>
+                                $row[name]</button>";
+                            } 
+                            $conn = null;
+                        }
+                        else{
+                            echo "<button type=button class='btn btn-light btn-sm dropdown-toggle' data-bs-toggle='dropdown' aria-expanded=false>
+                            ทั้งหมด</button>";
+                        }
+                        ?>
+                        
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="index.php">ทั้งหมด</a></li>
                             <?php
