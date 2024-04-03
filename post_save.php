@@ -8,5 +8,5 @@
     $conn->exec($sql);
     $conn = null;
     header("location:index.php");
-    header("location:post.php?id=$post_id");
+    header("location:post.php?id=$_POST[post_id]");
 ?>

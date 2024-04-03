@@ -24,11 +24,7 @@ if(!isset($_SESSION['id'])){
             <div class="col-lg-6 col-md-8 col-sm-10">
             <?php
                 if(isset($_SESSION['add_post'])){
-                    if($_SESSION['add_post']=="error"){
-                        echo "<div class='alert alert-danger'>
-                        ชื่อบัญชีมีซ้ำหรือฐานข้อมูลมีปัญหา</div>";
-                    }
-                    else{
+                    if($_SESSION['add_post']=="success"){
                         echo "<div class='alert alert-success'>
                         แก้ไขข้อมูลเรียบร้อยแล้ว</div>";
                     }

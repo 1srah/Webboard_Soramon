@@ -75,12 +75,16 @@ session_start();
                 while($row = $result->fetch()){
                     echo "<tr><td class='d-flex justify-content-between'>
                     <div>[ $row[0] ]<a href=post.php?id=$row[2] style=text-decoration:none> $row[1]</a><br>$row[3] - $row[4]</div>";
-                    if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
+                    if(isset($_SESSION['id']) && $row[6] == $_SESSION['user_id']){
                         echo "<div class='me-2 align-self-center'>
                         <a href=editpost.php?postid=$row[2] class='btn btn-warning btn-sm me-1'><i class='bi bi-pencil-fill'></i></a>
                         <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
                     }
-                    else if(isset($_SESSION['id']) && $_SESSION['role']=='m' && $row[6] == $_SESSION['user_id']){
+                    else if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
+                        echo "<div class='me-2 align-self-center'>
+                        <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
+                    }
+                    else if(isset($_SESSION['id']) && $row[6] == $_SESSION['user_id']){
                         echo "<div class='me-2 align-self-center'>
                         <a href=editpost.php?postid=$row[2] class='btn btn-warning btn-sm me-1'><i class='bi bi-pencil-fill'></i></a>
                         <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
@@ -97,12 +101,16 @@ session_start();
                 while($row = $result->fetch()){
                     echo "<tr><td class='d-flex justify-content-between'>
                     <div>[ $row[0] ]<a href=post.php?id=$row[2] style=text-decoration:none> $row[1]</a><br>$row[3] - $row[4]</div>";
-                    if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
+                    if(isset($_SESSION['id']) && $row[6] == $_SESSION['user_id']){
                         echo "<div class='me-2 align-self-center'>
                         <a href=editpost.php?postid=$row[2] class='btn btn-warning btn-sm me-1'><i class='bi bi-pencil-fill'></i></a>
                         <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
                     }
-                    else if(isset($_SESSION['id']) && $_SESSION['role']=='m' && $row[6] == $_SESSION['user_id']){
+                    else if(isset($_SESSION['id']) && $_SESSION['role']=='a'){
+                        echo "<div class='me-2 align-self-center'>
+                        <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
+                    }
+                    else if(isset($_SESSION['id']) && $row[6] == $_SESSION['user_id']){
                         echo "<div class='me-2 align-self-center'>
                         <a href=editpost.php?postid=$row[2] class='btn btn-warning btn-sm me-1'><i class='bi bi-pencil-fill'></i></a>
                         <a href=delete.php?id=$row[2] class='btn btn-danger btn-sm' onclick='return myfunction()'><i class='bi bi-trash'></i></a></div>";
